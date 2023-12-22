@@ -12,34 +12,13 @@ public class Main {
         StringTokenizer st;
         String sValue = br.readLine();
         int value = Integer.parseInt(sValue);
-        int compare;
-        int addition = 0;
-        int cnt = 1;
-        if (value < 10) {
-            compare = value * 10 + value;
-            sValue = Integer.toString(compare);
-        } else {
-            int mlb = Character.getNumericValue(sValue.charAt(0));
-            int msb = Character.getNumericValue(sValue.charAt(1));
-            addition = mlb + msb;
-            String additionS = Integer.toString(addition);
-            int msbAddition = Character.getNumericValue(additionS.charAt(additionS.length() - 1));
-            sValue = Integer.toString(msb) + Integer.toString(msbAddition);
-            compare = Integer.parseInt(sValue);
-        }
-        while (compare != value) {
+        int original = value;
+        int cnt = 0;
+        while(true) {
+            value = ((value % 10) * 10) + ((value/10 + value % 10) % 10);
             cnt++;
-            if (compare < 10) {
-                compare = compare * 10 + compare;
-                sValue = Integer.toString(compare);
-            } else {
-                int mlb = Character.getNumericValue(sValue.charAt(0));
-                int msb = Character.getNumericValue(sValue.charAt(1));
-                addition = mlb + msb;
-                String additionS = Integer.toString(addition);
-                int msbAddition = Character.getNumericValue(additionS.charAt(additionS.length() - 1));
-                sValue = Integer.toString(msb) + Integer.toString(msbAddition);
-                compare = Integer.parseInt(sValue);
+            if (value == original) {
+                break;
             }
         }
         bw.write(cnt + "\n");
