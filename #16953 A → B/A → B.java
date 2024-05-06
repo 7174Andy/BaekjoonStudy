@@ -14,28 +14,29 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         long A = Long.parseLong(st.nextToken());
         long B = Long.parseLong(st.nextToken());
-        int cnt = 1;
 
-        while (A != B) {
-            if (A > B) {
-                bw.write(-1 + "\n");
-                bw.close();
-                return;
+        int ans = 0;
+        Queue<Long> queue = new LinkedList<>();
+        queue.add(A * 2);
+        queue.add(A * 10 + 1);
+        while (!queue.isEmpty()) {
+            ans++;
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                long curr = queue.poll();
+                if (curr > B) {
+                    continue;
+                }
+                if (curr == B) {
+                    System.out.println(ans + 1);
+                    return;
+                }
+                queue.add(curr * 2);
+                queue.add(curr * 10 + 1);
             }
-            String s = String.valueOf(B);
-            if (B % 2 == 0) {
-                B /= 2;
-            } else if (s.charAt(s.length() - 1) == '1') {
-                s = s.substring(0, s.length() - 1);
-                B = Integer.parseInt(s);
-            } else {
-                bw.write(-1 + "\n");
-                bw.close();
-                return;
-            }
-            cnt++;
         }
-        bw.write(cnt + "\n");
-        bw.close();
+
+        System.out.println(-1);
     }
 }
